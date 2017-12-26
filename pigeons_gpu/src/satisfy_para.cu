@@ -44,44 +44,54 @@ void solution_initial(int* solution){
 
 
 __global__
-void positionnement_pigeon(int pigeon_id,int *solution,int n,int p){
+void kernelsolveurPigeonniersBacktrack(int pigeon_id,int *solution,int n,int p){
+	if (n>p){
+		printf(" aucune solution  possible car la contrainte n<=p n'est pas satisfaite \n");
+	}
 
-	if (threadIdx.y==pigeon_id && threadIdx.x<blockDim.x ){
-		int idx=blockDim.x * threadIdx.y+ threadIdx.x;
+	else{
 
-		bool ok=true;
-		int i=0;
-		while (i<n && ok==true){
-			if(solution[i*p+threadIdx.y]==1){
-				ok=false;
-			}
-			i=i+1;
+		if(pigeon_id==n ){
+			
 		}
+		else{
+			if (threadIdx.y==pigeon_id && threadIdx.x<blockDim.x ){
+				int idx=blockDim.x * threadIdx.y+ threadIdx.x;
 
-		if (ok==true){
-			int* solI=new int[n*p];
-			for (int i=0;i<n*p;++i){
+				bool ok=true;
+				int i=0;
+				while (i<n && ok==true){
+					if(solution[i*p+threadIdx.y]==1){
+						ok=false;
+					}
+					i=i+1;
+				}
 
-					solI[i]=0;
+				if (ok==true){
+					int* solI=new int[n*p];
+					for (int i=0;i<n*p;++i){
+
+							solI[i]=0;
+						}
+
+
+					std::memcpy(solI,solution,(n*p)*sizeof(int));
+					solI[idx]=1;
+
+
+				 if (pigeon_id!=n){
+					dim3 grid(1,1,1);
+					dim3 block(p,n,1);
+					printf(" n= %d et p= %d \n", n, p);
+					//kernelsolveurPigeonniersBacktrack<<< grid,block >>> (pigeon_id+1,solI,n,p);
+					//cudaDeviceSynchronize();
 				}
 
 
-			std::memcpy(solI,solution,(n*p)*sizeof(int));
-			solI[idx]=1;
+				}
 
-
-		 if (pigeon_id!=n){
-			dim3 grid(1,1,1);
-			dim3 block(p,n,1);
-			//positionnement_pigeon<<< grid,block >>> (pigeon_id+1,solI,n,p);
-			//cudaDeviceSynchronize();
+			}
 		}
-
-
-			// fin affichage
-
-		}
-
 	}
 }
 
@@ -103,7 +113,7 @@ int main(int argc, char *argv[]){
 		dim3 grid(1,1,1);
 		dim3 block(p,n,1);
 
-		positionnement_pigeon<<< grid,block >>> (0,sol_gpu,n,p);
+		kernelsolveurPigeonniersBacktrack<<< grid,block >>> (0,sol_gpu,n,p);
 		cudaDeviceSynchronize();
 
 		cudaFree(sol_gpu);
@@ -113,3 +123,4 @@ int main(int argc, char *argv[]){
 
 return 0;
 }
+

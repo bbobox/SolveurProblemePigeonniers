@@ -1,0 +1,23 @@
+==9364== NVPROF is profiling process 9364, command: ./../pigeons_gpu/bin/debug/satisfy_para.exe 2 2
+==9364== Profiling application: ./../pigeons_gpu/bin/debug/satisfy_para.exe 2 2
+==9364== Profiling result:
+Time(%)      Time     Calls       Avg       Min       Max  Name
+      %         s                   s         s         s  
+  98.90  1.20e-04         1  1.20e-04  1.20e-04  1.20e-04  kernelsolveurPigeonniersBacktrack(int, int*, int, int)
+   1.10  1.34e-06         1  1.34e-06  1.34e-06  1.34e-06  [CUDA memcpy HtoD]
+
+==9364== API calls:
+Time(%)      Time     Calls       Avg       Min       Max  Name
+      %         s                   s         s         s  
+  98.64  0.105049         1  0.105049  0.105049  0.105049  cudaMalloc
+   0.57  6.03e-04         1  6.03e-04  6.03e-04  6.03e-04  cudaLaunch
+   0.39  4.17e-04        83  5.02e-06  1.49e-07  1.85e-04  cuDeviceGetAttribute
+   0.13  1.41e-04         1  1.41e-04  1.41e-04  1.41e-04  cudaDeviceSynchronize
+   0.13  1.36e-04         1  1.36e-04  1.36e-04  1.36e-04  cudaFree
+   0.07  7.74e-05         1  7.74e-05  7.74e-05  7.74e-05  cuDeviceTotalMem
+   0.05  5.16e-05         1  5.16e-05  5.16e-05  5.16e-05  cuDeviceGetName
+   0.01  1.58e-05         1  1.58e-05  1.58e-05  1.58e-05  cudaMemcpy
+   0.00  2.48e-06         4  6.20e-07  1.24e-07  1.92e-06  cudaSetupArgument
+   0.00  1.40e-06         2  7.01e-07  2.79e-07  1.12e-06  cuDeviceGetCount
+   0.00  7.30e-07         1  7.30e-07  7.30e-07  7.30e-07  cudaConfigureCall
+   0.00  4.74e-07         2  2.37e-07  1.53e-07  3.21e-07  cuDeviceGet
