@@ -1,9 +1,4 @@
 # SolveurProblemePigeonniers
-@BOKA Yao
-@IBRIR Yassine
-M1 Info
-
-
 
 -Compilation du solveur sur CPU:
 	*acceder au dossier "/pigeons_cpu" et faire :
@@ -18,6 +13,9 @@ M1 Info
 -Compilation du solveur sur GPU: ( probleme au niveau de la compilation)
 	*acceder au dossier "/pigeons_cpu" et faire :
 		-lancer le makefile : make
+		-lancer l'excutable "satisfy_cpu.exe": ./bind/debug/satisfy_cpu.exe param1 param2
+			Param1: nombre de pigeons
+			param2: nombre de pigeonniers
 
 	Probleme rencontré de la compilation: ( Appel de Kernel recursif (à  ligne 85 mis en commententaire satisfy_para.cu ) provoquant l'erreur suivante
 		-"nvlink error   : Undefined reference to 'cudaGetParameterBufferV2' in 'obj/debug/satisfy_para.o' (target: sm_35)
